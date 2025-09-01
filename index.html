@@ -1,0 +1,204 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Happy Birthday, Popu 🎉</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600;700&family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+  <!-- Confetti -->
+  <script defer src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
+  <!-- Main JS -->
+  <script defer src="{{ url_for('static', filename='js/main.js') }}"></script>
+</head>
+<body>
+  {% if not authed %}
+  <div class="gate">
+    <div class="card glass">
+      <h1>🔒 Private Birthday Page</h1>
+      <p>This surprise is just for <strong>Suhail</strong> 🎁</p>
+      {% if request.args.get('bad') %}
+        <p class="bad">Oops! That code wasn't right. Try again 💫</p>
+      {% endif %}
+      <form method="post" action="/login" class="gate-form">
+        <input name="code" type="password" placeholder="Enter passcode" aria-label="Passcode" required>
+        <button type="submit">Open the Surprise ✨</button>
+      </form>
+      <p class="hint">Clue : Call and ask me😘</p>
+    </div>
+  </div>
+  {% else %}
+  <div id="balloon-layer"></div>
+  <div class="stars"></div>
+
+  <header class="hero">
+    <img class="cover" src="{{ url_for('static', filename='img/cover.svg') }}" alt="Suhail cover art">
+    <div class="hero-content">
+      <h1 class="title">Happy Birthday, <span class="gradient">Popu</span>! 🎂</h1>
+      <p class="subtitle">May Allah SWT bless you with endless blessings baby.</p>
+      <div class="cta-row">
+        <button id="musicBtn" class="btn">Play the Secret Message ♪</button>
+        <button id="confettiBtn" class="btn primary">Shower Confetti 🎉</button>
+        <a class="btn subtle" href="/logout" title="Hide the surprise">Lock Page 🔐</a>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="letter glass">
+      <h2>💌 A Little Love Note</h2>
+      <p id="typewriter" class="type">
+        My dearest Popu / Vootukaar / Azhagu,  
+  Today is not just your birthday, it’s the very first one I get to celebrate with you as my husband. 💍❤️  
+  I feel so blessed to walk through life holding your hand, sharing every smile, every laugh, and every dream.  
+  You make the ordinary feel extraordinary, and my world brighter with your love.  
+  May this year wrap you in happiness, fill your heart with peace, and bring us countless memories together.  
+  Happy Birthday, my love, my bestfriend, my forever. 💖 And dont forget to listen the secret message hehe Love you baby
+      </p>
+      <div class="actions">
+        <button id="retype" class="btn">Replay Message 🔁</button>
+        <button id="hearts" class="btn">Float Hearts 💗</button>
+      </div>
+    </section>
+
+    <section class="gallery">
+      <h2>📸 Our Little Gallery</h2>
+      <div class="grid">
+        <figure class="polaroid">
+          <img src="{{ url_for('static', filename='img/suhail.jpg') }}" alt="Suhail">
+          <figcaption>Always my favorite person</figcaption>
+        </figure>
+        <figure class="polaroid">
+          <img src="{{ url_for('static', filename='img/love.jpeg') }}" alt="Memory 2">
+          <figcaption>Our laughter, our story</figcaption>
+        </figure>
+        <figure class="polaroid">
+          <img src="{{ url_for('static', filename='img/Adv.jpeg') }}" alt="Memory 3">
+          <figcaption>More adventures ahead</figcaption>
+        </figure>
+      </div>
+    </section>
+    <section class="memory glass">
+      <h2>🎥 Our Favorite Memory</h2>
+      <video id="memoryVideo" controls playsinline preload="metadata" poster="{{ url_for('static', filename='img/suhail.jpg') }}" style="width:100%; border-radius:16px; box-shadow:0 14px 30px rgba(0,0,0,.08)">
+        <source src="{{ url_for('static', filename='video/memory.mp4') }}" type="video/mp4">
+        <source src="{{ url_for('static', filename='video/memory.webm') }}" type="video/webm">
+        Your browser does not support the video tag.
+      </video>
+      <div class="actions center">
+        <button id="playMemory" class="btn primary">Play Memory ▶</button>
+        <button id="confettiMemory" class="btn">Celebrate 🎉</button>
+      </div>
+    </section>
+<!-- Friends' Birthday Wishes -->
+<section class="wishes glass" id="friend-wishes">
+  <h2>🎁 Wishes From Friends</h2>
+  <p class="hint small">Tap a name to play their video message.</p>
+
+  <div class="grid friends-grid">
+    <!-- Each button has data-src pointing to the static video file -->
+    <button class="friend-card"
+            data-friend="Asiq"
+            data-src="{{ url_for('static', filename='video/wishes/Asiq.mp4') }}">Asiq</button>
+
+    <button class="friend-card"
+            data-friend="Jasvath"
+            data-src="{{ url_for('static', filename='video/wishes/Jasvath.mp4') }}">Jasvath</button>
+
+    <button class="friend-card"
+            data-friend="Thasleem"
+            data-src="{{ url_for('static', filename='video/wishes/Thasleem.mp4') }}">Thasleem</button>
+
+    <button class="friend-card"
+            data-friend="Rehan"
+            data-src="{{ url_for('static', filename='video/wishes/Rehan.mp4') }}">Rehan</button>
+
+    <button class="friend-card"
+            data-friend="Yasar"
+            data-src="{{ url_for('static', filename='video/wishes/Yasar.mp4') }}">Yasar</button>
+
+    <button class="friend-card"
+            data-friend="Shameer"
+            data-src="{{ url_for('static', filename='video/wishes/Shameer.mp4') }}">Shameer</button>
+
+    <button class="friend-card"
+            data-friend="Vaishnov"
+            data-src="{{ url_for('static', filename='video/wishes/Vaishnov.mp4') }}">Vaishnov</button>
+
+    <button class="friend-card"
+            data-friend="Vishnu"
+            data-src="{{ url_for('static', filename='video/wishes/Vishnu.mp4') }}">Vishnu</button>
+
+    <button class="friend-card"
+            data-friend="Jahabar"
+            data-src="{{ url_for('static', filename='video/wishes/Jahabar.mp4') }}">Jahabar</button>
+
+    <button class="friend-card"
+            data-friend="Mansoor"
+            data-src="{{ url_for('static', filename='video/wishes/Mansoor.mp4') }}">Mansoor, Hamza & Fathima</button>
+
+
+    <button class="friend-card"
+            data-friend="Guhan"
+            data-src="{{ url_for('static', filename='video/wishes/Guhan.mp4') }}">Guhan</button>
+
+    <button class="friend-card"
+            data-friend="Faiz"
+            data-src="{{ url_for('static', filename='video/wishes/Faiz.mp4') }}">Faiz</button>
+
+    <button class="friend-card"
+            data-friend="Raiz"
+            data-src="{{ url_for('static', filename='video/wishes/Raiz.mp4') }}">Raiz</button>
+
+    <button class="friend-card"
+            data-friend="Rasmi"
+            data-src="{{ url_for('static', filename='video/wishes/Rasmi.mp4') }}">Rasmi</button>
+  </div>
+</section>
+
+  </main>
+
+  <footer>
+    <p>Made with <span class="heart">❤</span> by your Pondatti</p>
+  </footer>
+
+  <!-- Optional audio (drop a file at static/audio/birthday_song.mp3) -->
+  <audio id="song" src="{{ url_for('static', filename='audio/birthday_song.mp3') }}"></audio>
+  {% endif %}
+
+  <!-- Heart click particle layer -->
+  <div id="heart-layer"></div>
+
+  <!-- Floating love quotes layer -->
+  <div id="quotes-layer" aria-hidden="true"></div>
+  <!-- Surprise toast -->
+  <div id="toast" role="status" aria-live="polite"></div>
+  <!-- Friend wish modal -->
+<div id="wishModal" class="modal" role="dialog" aria-modal="true" aria-labelledby="wishTitle" hidden>
+  <div class="modal-backdrop" data-close></div>
+  <div class="modal-sheet" role="document">
+    <button class="modal-close" aria-label="Close" data-close>✕</button>
+    <h3 id="wishTitle" class="modal-title">A special wish</h3>
+    <video id="wishPlayer" controls playsinline preload="metadata" class="wish-video">
+      <!-- we’ll set the source in JS -->
+      Sorry, your browser doesn’t support videos.
+    </video>
+  </div>
+</div>
+<!-- Friend wish modal -->
+<div id="wishModal" class="modal" role="dialog" aria-modal="true" aria-labelledby="wishTitle" hidden>
+  <div class="modal-backdrop" data-close></div>
+  <div class="modal-sheet" role="document">
+    <button class="modal-close" aria-label="Close" data-close>✕</button>
+    <h3 id="wishTitle" class="modal-title">A special wish</h3>
+    <video id="wishPlayer" controls playsinline preload="metadata" class="wish-video">
+      Sorry, your browser doesn’t support videos.
+    </video>
+  </div>
+</div>
+
+</body>
+</html>
+
