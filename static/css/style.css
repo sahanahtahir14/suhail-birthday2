@@ -1,0 +1,251 @@
+/* Cute Birthday Styles */
+:root{
+  --bg-1:#f7ecff;
+  --bg-2:#e6f9ff;
+  --pink:#ff69b4;
+  --violet:#7a5cff;
+  --blue:#4cc9f0;
+  --mint:#9bffd1;
+  --ink:#2b2b2b;
+  --glass: rgba(255,255,255,.6);
+}
+*{box-sizing:border-box}
+html,body{height:100%}
+body{
+  margin:0;
+  font-family:"Poppins",system-ui,-apple-system,Segoe UI,Roboto;
+  color:var(--ink);
+  background: radial-gradient(1200px 800px at 10% 10%, var(--bg-1), transparent 60%),
+              radial-gradient(1200px 800px at 90% 20%, var(--bg-2), transparent 60%),
+              linear-gradient(180deg,#fff, #fdf6ff 60%, #f1fbff);
+  overflow-x:hidden;
+}
+
+/* Gate */
+.gate{
+  min-height:100dvh;
+  display:grid;
+  place-items:center;
+  padding:24px;
+}
+.card{
+  max-width:560px;
+  width:100%;
+  padding:28px;
+  border-radius:20px;
+  background:var(--glass);
+  box-shadow:0 30px 60px rgba(0,0,0,.08);
+  backdrop-filter: blur(6px);
+  text-align:center;
+}
+.card h1{margin:0 0 6px; font-weight:700}
+.card p{margin:.25rem 0 1rem}
+.bad{color:#c62828; font-weight:600}
+.gate-form{display:flex; gap:10px; justify-content:center}
+.gate-form input{
+  padding:12px 14px; border-radius:14px; border:1px solid #e4dfff; min-width:220px;
+}
+.gate-form button{
+  padding:12px 16px; border-radius:14px; border:0; background:var(--violet); color:#fff; font-weight:700; cursor:pointer;
+}
+.hint{opacity:.65}
+.small{font-size:.9rem}
+
+/* Hero */
+.hero{
+  position:relative;
+  min-height:60vh;
+  display:grid;
+  place-items:center;
+  padding:40px 20px;
+}
+.cover{
+  position:absolute; inset:0; width:100%; height:100%; object-fit:cover; opacity:.15; pointer-events:none;
+}
+.hero-content{position:relative; z-index:1; text-align:center; max-width:900px}
+.title{
+  font-family:"Dancing Script", cursive;
+  font-size: clamp(42px, 8vw, 96px);
+  margin:0 0 8px;
+}
+.gradient{
+  background: linear-gradient(90deg, var(--pink), var(--violet), var(--blue));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+.subtitle{font-size: clamp(16px, 2.3vw, 22px); opacity:.8; margin:0 0 16px}
+.cta-row{display:flex; gap:12px; flex-wrap:wrap; justify-content:center}
+.btn{
+  padding:12px 18px; border-radius:999px; border:2px solid #00000010; background:#fff; font-weight:700; cursor:pointer;
+  box-shadow:0 8px 20px rgba(0,0,0,.06)
+}
+.btn.primary{ background: linear-gradient(90deg, var(--pink), var(--violet)); color:#fff; border:0}
+.btn.subtle{ background:transparent}
+
+/* Sections */
+main{padding:20px}
+.glass{ background:var(--glass); border-radius:20px; padding:22px; box-shadow:0 20px 40px rgba(0,0,0,.06); backdrop-filter: blur(6px); }
+section{margin:24px auto; max-width:980px}
+
+.letter h2, .wish h2, .gallery h2{ margin:0 0 12px }
+.type{ line-height:1.8; font-size:1.05rem }
+
+.actions{ display:flex; gap:10px; flex-wrap:wrap; margin-top:14px }
+.actions.center{justify-content:center}
+
+/* Gallery */
+.gallery .grid{
+  display:grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap:16px;
+}
+.polaroid{
+  background:#fff; padding:10px 10px 18px; border-radius:12px; box-shadow:0 14px 30px rgba(0,0,0,.08);
+  transform: rotate(var(--rot, -1deg)); transition:.2s transform;
+}
+.polaroid:hover{ transform:rotate(0deg) scale(1.02) }
+.polaroid img{ width:100%; border-radius:8px; display:block }
+.polaroid figcaption{ text-align:center; margin-top:8px; opacity:.7 }
+
+/* Wish meter */
+.meter{ position:relative; height:22px; background:#fff; border-radius:999px; overflow:hidden; border:1px solid #00000010; }
+.meter .fill{
+  position:absolute; left:0; top:0; bottom:0; width:0%;
+  background: linear-gradient(90deg, var(--mint), var(--blue), var(--violet));
+  transition: width .4s ease-in-out;
+}
+.meter #meterText{
+  position:absolute; inset:0; display:grid; place-items:center; font-weight:700
+}
+
+/* Floating balloons + stars */
+#balloon-layer{ position:fixed; inset:0; pointer-events:none; z-index:1 }
+.balloon{
+  position:absolute; bottom:-120px; width:36px; height:46px; border-radius:50% 50% 45% 55%;
+  background: var(--balloon, #ffa7d1);
+  box-shadow: inset -8px -10px 16px rgba(0,0,0,.08);
+  animation: floatUp linear forwards;
+}
+.balloon::after{
+  content:""; position:absolute; left:50%; transform:translateX(-50%);
+  bottom:-14px; width:2px; height:20px; background:#00000020;
+}
+@keyframes floatUp{
+  from{ transform: translateY(0) }
+  to{ transform: translateY(-120vh) }
+}
+.stars{
+  position:fixed; inset:0; pointer-events:none; background:
+    radial-gradient(circle at 20% 30%, #fff6 0 2px, transparent 3px),
+    radial-gradient(circle at 70% 60%, #fff6 0 2px, transparent 3px),
+    radial-gradient(circle at 40% 80%, #fff6 0 1.5px, transparent 2px);
+  mix-blend-mode: screen; opacity:.6;
+}
+
+/* Hearts click particles */
+#heart-layer{ position:fixed; inset:0; pointer-events:none; z-index:3 }
+.click-heart{
+  position:absolute;
+  font-size:18px;
+  animation: popfade 1s ease-out forwards;
+}
+@keyframes popfade{
+  0% { transform: translate(-50%, -20%) scale(.6); opacity:0 }
+  30%{ transform: translate(-50%, -60%) scale(1); opacity:1 }
+  100%{ transform: translate(-50%, -160%) scale(.6); opacity:0 }
+}
+
+footer{ text-align:center; padding:40px 10px; opacity:.6 }
+footer .heart{ color:var(--pink) }
+
+/* Floating love quotes */
+#quotes-layer{ position:fixed; inset:0; pointer-events:none; z-index:2 }
+.quote-float{
+  position:absolute;
+  font-family:"Dancing Script", cursive;
+  font-size: clamp(18px, 3vw, 34px);
+  opacity:0;
+  transform: translate(-50%, -10%) scale(.9);
+  animation: quoteFloat 12s ease-in-out forwards;
+  text-shadow: 0 2px 10px rgba(0,0,0,.08);
+  background: linear-gradient(90deg, var(--pink), var(--violet), var(--blue));
+  -webkit-background-clip: text; background-clip: text; color: transparent;
+}
+@keyframes quoteFloat{
+  0%   { opacity:0; transform: translate(-50%, 10%) scale(.9) }
+  10%  { opacity:1 }
+  50%  { transform: translate(-50%, -30%) scale(1.02) }
+  90%  { opacity:1 }
+  100% { opacity:0; transform: translate(-50%, -60%) scale(.98) }
+}
+
+/* Surprise toast */
+#toast{
+  position:fixed;
+  left:50%; bottom:26px; transform: translateX(-50%) translateY(120%);
+  background: rgba(255,255,255,.9);
+  border: 1px solid #00000010;
+  box-shadow: 0 18px 36px rgba(0,0,0,.12);
+  border-radius: 16px;
+  padding: 12px 18px;
+  font-weight:700;
+  z-index: 50;
+  transition: transform .35s ease, opacity .35s ease;
+  opacity:0;
+}
+#toast.show{ transform: translateX(-50%) translateY(0); opacity:1 }
+#toast .tiny{ display:block; font-weight:400; font-size:.9rem; opacity:.7 }
+
+/* Friends wishes grid */
+.wishes .friends-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 14px;
+  margin-top: 12px;
+}
+.friend-card {
+  appearance: none;
+  border: 0;
+  cursor: pointer;
+  padding: 16px 14px;
+  border-radius: 14px;
+  font-weight: 700;
+  background: #fff;
+  box-shadow: 0 10px 20px rgba(0,0,0,.06);
+  transition: transform .15s ease, box-shadow .15s ease;
+}
+.friend-card:hover { transform: translateY(-2px); box-shadow: 0 14px 28px rgba(0,0,0,.10); }
+.friend-card:active { transform: translateY(0); }
+
+/* Modal */
+.modal[hidden] { display: none !important; }
+.modal { position: fixed; inset: 0; z-index: 60; }
+.modal-backdrop {
+  position: absolute; inset: 0; background: rgba(0,0,0,.45);
+  backdrop-filter: blur(2px);
+}
+.modal-sheet {
+  position: absolute; left: 50%; top: 50%;
+  transform: translate(-50%, -50%);
+  width: min(92vw, 820px);
+  background: #fff;
+  border-radius: 18px;
+  box-shadow: 0 30px 60px rgba(0,0,0,.25);
+  padding: 14px 14px 18px;
+}
+.modal-title {
+  margin: 6px 42px 10px 10px;
+  font-size: 1.1rem;
+  font-weight: 700;
+}
+.modal-close {
+  position: absolute; top: 10px; right: 10px;
+  border: 0; background: #f5f5f7; border-radius: 999px;
+  width: 34px; height: 34px; font-size: 16px; cursor: pointer;
+}
+.wish-video {
+  width: 100%;
+  max-height: 70vh;
+  border-radius: 12px;
+  box-shadow: 0 6px 18px rgba(0,0,0,.08);
+  background: #000;
+}
